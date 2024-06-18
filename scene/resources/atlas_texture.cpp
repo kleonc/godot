@@ -243,7 +243,9 @@ bool AtlasTexture::is_pixel_opaque(int p_x, int p_y) const {
 }
 
 Ref<Image> AtlasTexture::get_image() const {
-	if (atlas.is_null() || region.size.x <= 0 || region.size.y <= 0) {
+	const int width = get_width();
+	const int height = get_height();
+	if (atlas.is_null() || width <= 0 || height <= 0) {
 		return Ref<Image>();
 	}
 
@@ -252,7 +254,30 @@ Ref<Image> AtlasTexture::get_image() const {
 		return Ref<Image>();
 	}
 
-	return atlas_image->get_region(region);
+	Ref<Image> image = memnew(Image(width, height, atlas_image->has_mipmaps(), atlas_image->get_format()));
+	image->blit_rect(atlas_image, Rect2i(region), Vector2i(margin.position));
+
+	if (margin != Rect2()) {
+		const Color transparent(0, 0, 0, 0);
+		const int left = margin.position.x;
+		const int top = margin.position.y;
+		const int right = margin.size.x - margin.position.x;
+		const int bottom = margin.size.y - margin.position.y;
+		if (top > 0) {
+			image->fill_rect(Rect2i(0, 0, width, top), transparent);
+		}
+		if (left > 0) {
+			image->fill_rect(Rect2i(0, top, left, height - (top + bottom)), transparent);
+		}
+		if (right > 0) {
+			image->fill_rect(Rect2i(width - right, top, right, height - (top + bottom)), transparent);
+		}
+		if (bottom > 0) {
+			image->fill_rect(Rect2i(0, height - bottom, width, bottom), transparent);
+		}
+	}
+
+	return image;
 }
 
 AtlasTexture::AtlasTexture() {}
