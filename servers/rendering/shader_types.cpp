@@ -540,7 +540,7 @@ ShaderTypes::ShaderTypes() {
 
 	// Texture Blit Modes
 	{
-		shader_modes[RS::SHADER_TEXTURE_BLIT].modes.push_back({ PNAME("blend"), "mix", "add", "sub", "mul", "disabled" });
+		shader_modes[RS::SHADER_TEXTURE_BLIT].modes.push_back({ PNAME("blend"), "mix", "add", "sub", "mul", "min", "max", "disabled" });
 	}
 
 	// Must be kept in sync with the Shader::Mode enum.

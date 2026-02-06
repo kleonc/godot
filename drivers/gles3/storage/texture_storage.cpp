@@ -1477,6 +1477,16 @@ void TextureStorage::texture_drawable_blit_rect(const TypedArray<RID> &p_texture
 			glBlendFuncSeparate(GL_DST_COLOR, GL_ZERO, GL_DST_ALPHA, GL_ZERO);
 			break;
 
+		case GLES3::TexBlitShaderData::BLEND_MODE_MINIMUM:
+			glBlendEquation(GL_MIN);
+			// GL_MIN does not use blend factors.
+			break;
+
+		case GLES3::TexBlitShaderData::BLEND_MODE_MAXIMUM:
+			glBlendEquation(GL_MAX);
+			// GL_MAX does not use blend factors.
+			break;
+
 		case GLES3::TexBlitShaderData::BLEND_MODE_DISABLED:
 			glDisable(GL_BLEND);
 			break;

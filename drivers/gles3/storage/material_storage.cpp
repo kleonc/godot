@@ -3385,6 +3385,8 @@ void TexBlitShaderData::set_code(const String &p_code) {
 	actions.render_mode_values["blend_mix"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MIX);
 	actions.render_mode_values["blend_sub"] = Pair<int *, int>(&blend_modei, BLEND_MODE_SUB);
 	actions.render_mode_values["blend_mul"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MUL);
+	actions.render_mode_values["blend_min"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MINIMUM);
+	actions.render_mode_values["blend_max"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MAXIMUM);
 	actions.render_mode_values["blend_disabled"] = Pair<int *, int>(&blend_modei, BLEND_MODE_DISABLED);
 
 	actions.uniforms = &uniforms;

@@ -26,7 +26,13 @@
 		<constant name="BLEND_MODE_MUL" value="3" enum="BlendMode">
 			Multiplicative blending mode.
 		</constant>
-		<constant name="BLEND_MODE_DISABLED" value="4" enum="BlendMode">
+		<constant name="BLEND_MODE_MINIMUM" value="4" enum="BlendMode">
+			Minimum blending mode.
+		</constant>
+		<constant name="BLEND_MODE_MAXIMUM" value="5" enum="BlendMode">
+			Maximum blending mode.
+		</constant>
+		<constant name="BLEND_MODE_DISABLED" value="6" enum="BlendMode">
 			No blending mode, direct color copy.
 		</constant>
 	</constants>

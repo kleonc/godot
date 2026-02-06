@@ -798,19 +798,11 @@ void RasterizerCanvasGLES3::_render_items(RID p_to_render_target, int p_item_cou
 				} break;
 				case GLES3::CanvasShaderData::BLEND_MODE_MINIMUM: {
 					glBlendEquation(GL_MIN);
-					if (state.transparent_render_target) {
-						glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE, GL_SRC_ALPHA, GL_ONE);
-					} else {
-						glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE, GL_ZERO, GL_ONE);
-					}
+					// GL_MIN does not use blend factors.
 				} break;
 				case GLES3::CanvasShaderData::BLEND_MODE_MAXIMUM: {
 					glBlendEquation(GL_MAX);
-					if (state.transparent_render_target) {
-						glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE, GL_SRC_ALPHA, GL_ONE);
-					} else {
-						glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE, GL_ZERO, GL_ONE);
-					}
+					// GL_MAX does not use blend factors.
 				} break;
 			}
 			last_blend_mode = blend_mode;

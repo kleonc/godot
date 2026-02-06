@@ -701,19 +701,13 @@ RD::PipelineColorBlendState::Attachment MaterialStorage::ShaderData::blend_mode_
 			attachment.enable_blend = true;
 			attachment.alpha_blend_op = RD::BLEND_OP_MINIMUM;
 			attachment.color_blend_op = RD::BLEND_OP_MINIMUM;
-			attachment.src_color_blend_factor = RD::BLEND_FACTOR_SRC_ALPHA;
-			attachment.dst_color_blend_factor = RD::BLEND_FACTOR_ONE;
-			attachment.src_alpha_blend_factor = RD::BLEND_FACTOR_SRC_ALPHA;
-			attachment.dst_alpha_blend_factor = RD::BLEND_FACTOR_ONE;
+			// BLEND_OP_MINIMUM does not use blend factors.
 		} break;
 		case BLEND_MODE_MAXIMUM: {
 			attachment.enable_blend = true;
 			attachment.alpha_blend_op = RD::BLEND_OP_MAXIMUM;
 			attachment.color_blend_op = RD::BLEND_OP_MAXIMUM;
-			attachment.src_color_blend_factor = RD::BLEND_FACTOR_SRC_ALPHA;
-			attachment.dst_color_blend_factor = RD::BLEND_FACTOR_ONE;
-			attachment.src_alpha_blend_factor = RD::BLEND_FACTOR_SRC_ALPHA;
-			attachment.dst_alpha_blend_factor = RD::BLEND_FACTOR_ONE;
+			// BLEND_OP_MAXIMUM does not use blend factors.
 		} break;
 		case BLEND_MODE_ALPHA_TO_COVERAGE: {
 			attachment.enable_blend = true;
@@ -1292,6 +1286,8 @@ void MaterialStorage::TexBlitShaderData::set_code(const String &p_code) {
 	actions.render_mode_values["blend_mix"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MIX);
 	actions.render_mode_values["blend_sub"] = Pair<int *, int>(&blend_modei, BLEND_MODE_SUB);
 	actions.render_mode_values["blend_mul"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MUL);
+	actions.render_mode_values["blend_min"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MINIMUM);
+	actions.render_mode_values["blend_max"] = Pair<int *, int>(&blend_modei, BLEND_MODE_MAXIMUM);
 	actions.render_mode_values["blend_disabled"] = Pair<int *, int>(&blend_modei, BLEND_MODE_DISABLED);
 
 	actions.uniforms = &uniforms;
@@ -1370,6 +1366,18 @@ void MaterialStorage::TexBlitShaderData::set_code(const String &p_code) {
 			attachment.dst_color_blend_factor = RD::BLEND_FACTOR_ZERO;
 			attachment.src_alpha_blend_factor = RD::BLEND_FACTOR_DST_ALPHA;
 			attachment.dst_alpha_blend_factor = RD::BLEND_FACTOR_ZERO;
+		} break;
+		case BLEND_MODE_MINIMUM: {
+			attachment.enable_blend = true;
+			attachment.alpha_blend_op = RD::BLEND_OP_MINIMUM;
+			attachment.color_blend_op = RD::BLEND_OP_MINIMUM;
+			// BLEND_OP_MINIMUM does not use blend factors.
+		} break;
+		case BLEND_MODE_MAXIMUM: {
+			attachment.enable_blend = true;
+			attachment.alpha_blend_op = RD::BLEND_OP_MAXIMUM;
+			attachment.color_blend_op = RD::BLEND_OP_MAXIMUM;
+			// BLEND_OP_MAXIMUM does not use blend factors.
 		} break;
 		case BLEND_MODE_DISABLED:
 		default: {

@@ -53,6 +53,12 @@ void BlitMaterial::_update_shader(BlendMode p_blend) {
 			case BLEND_MODE_MUL:
 				code += "blend_mul";
 				break;
+			case BLEND_MODE_MINIMUM:
+				code += "blend_min";
+				break;
+			case BLEND_MODE_MAXIMUM:
+				code += "blend_max";
+				break;
 			case BLEND_MODE_DISABLED:
 				code += "blend_disabled";
 				break;
@@ -128,6 +134,8 @@ void BlitMaterial::_bind_methods() {
 	BIND_ENUM_CONSTANT(BLEND_MODE_ADD);
 	BIND_ENUM_CONSTANT(BLEND_MODE_SUB);
 	BIND_ENUM_CONSTANT(BLEND_MODE_MUL);
+	BIND_ENUM_CONSTANT(BLEND_MODE_MINIMUM);
+	BIND_ENUM_CONSTANT(BLEND_MODE_MAXIMUM);
 	BIND_ENUM_CONSTANT(BLEND_MODE_DISABLED);
 }
 
